@@ -1,0 +1,30 @@
+export const SITE = {
+  name: "Trout's Market",
+  legalName: "Trout's Seafood & Deli Market",
+  tagline: "Seafood · Deli · Groceries · Est. 1994",
+  description:
+    "Trout's Market in Woodsboro, MD — fresh seafood, housemade deli, legendary fried chicken, and everyday groceries serving Frederick County since 1994.",
+  url: "https://www.troutsmarket.com",
+  phone: "301-845-8674",
+  phoneTel: "+13018458674",
+  email: "info@troutsmarket.com",
+  curbsideEmail: "troutsmarketcurbside@gmail.com",
+  address: {
+    street: "3 North Main Street",
+    city: "Woodsboro",
+    region: "MD",
+    postal: "21798",
+    country: "US",
+  },
+  geo: { lat: 39.5321, lng: -77.3136 },
+  founded: "1994",
+  hours: [
+    ["Monday", "7:00 AM – 7:00 PM", "07:00", "19:00"],
+    ["Tuesday", "7:00 AM – 7:00 PM", "07:00", "19:00"],
+    ["Wednesday", "7:00 AM – 7:00 PM", "07:00", "19:00"],
+    ["Thursday", "7:00 AM – 7:00 PM", "07:00", "19:00"],
+    ["Friday", "7:00 AM – 7:00 PM", "07:00", "19:00"],
+    ["Saturday", "8:00 AM – 6:00 PM", "08:00", "18:00"],
+    ["Sunday", "9:00 AM – 5:00 PM", "09:00", "17:00"],
+  ] as const,
+};
