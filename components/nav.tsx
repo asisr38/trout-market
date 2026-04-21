@@ -5,10 +5,12 @@ import { SITE } from "@/lib/site";
 import ThemeToggle from "./theme-toggle";
 
 const LINKS = [
-  { href: "#specials", label: "Specials" },
-  { href: "#deli", label: "Deli & Catering" },
-  { href: "#hours", label: "Hours" },
-  { href: "#about", label: "About" },
+  { href: "/#specials", label: "Specials" },
+  { href: "/shop", label: "Shop" },
+  { href: "/#deli", label: "Deli & Catering" },
+  { href: "/#dinner", label: "Dinner" },
+  { href: "/#hours", label: "Hours" },
+  { href: "/#about", label: "About" },
 ];
 
 export default function Nav() {
@@ -30,7 +32,7 @@ export default function Nav() {
   return (
     <>
       <nav className="nav" aria-label="Primary">
-        <a href="#top" className="nav-logo" aria-label={`${SITE.name} home`}>
+        <a href="/" className="nav-logo" aria-label={`${SITE.name} home`}>
           <span className="nav-logo-top">{SITE.name}</span>
           <span className="nav-logo-sub">
             Est. {SITE.founded} · {SITE.address.city}, {SITE.address.region}

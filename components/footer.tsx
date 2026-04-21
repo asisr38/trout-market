@@ -24,8 +24,9 @@ export default function Footer() {
         <div>
           <div className="footer-col-title">Services</div>
           <nav className="footer-links" aria-label="Services">
-            <a href="#deli">Deli</a>
-            <a href="#deli">Catering</a>
+            <a href="/shop">Grocery, Deli &amp; Seafood</a>
+            <a href="#deli">Deli &amp; Catering</a>
+            <a href="#dinner">Dinner Menu</a>
             <a href="#hours">Curbside Pickup</a>
           </nav>
         </div>
@@ -36,6 +37,14 @@ export default function Footer() {
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
             <a href="#hours">Hours &amp; Location</a>
           </nav>
+          <div className="payments">
+            <div className="payments-label">We Accept</div>
+            <ul className="payments-list">
+              {SITE.paymentsAccepted.map((p) => (
+                <li className="payment-badge" key={p}>{p}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       <div className="footer-bottom">

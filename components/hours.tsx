@@ -33,22 +33,27 @@ export default function Hours() {
           </div>
         </div>
         <div className="hours-layout">
-          <dl className="hours-table">
-            {SITE.hours.map(([day, time], i) => {
-              const isToday = i === todayIdx;
-              return (
-                <div className={`hours-row${isToday ? " today" : ""}`} key={day}>
-                  <dt className="hours-day">
-                    {isToday && <span className="today-dot" aria-hidden="true" />} {day}
-                    {isToday && " — Today"}
-                  </dt>
-                  <dd className="hours-time">
-                    <time>{time}</time>
-                  </dd>
-                </div>
-              );
-            })}
-          </dl>
+          <div>
+            <dl className="hours-table">
+              {SITE.hours.map(([day, time], i) => {
+                const isToday = i === todayIdx;
+                return (
+                  <div className={`hours-row${isToday ? " today" : ""}`} key={day}>
+                    <dt className="hours-day">
+                      {isToday && <span className="today-dot" aria-hidden="true" />} {day}
+                      {isToday && " — Today"}
+                    </dt>
+                    <dd className="hours-time">
+                      <time>{time}</time>
+                    </dd>
+                  </div>
+                );
+              })}
+            </dl>
+            <p className="hours-note" role="note">
+              <strong style={{ color: "var(--gold)", fontWeight: 500 }}>Note:</strong> {SITE.hotFoodsNote}
+            </p>
+          </div>
           <div>
             <div className="map-frame" aria-label={`Map showing ${SITE.name} location`}>
               <Map />

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
-import { SITE } from "@/lib/site";
+import { SITE, DINNER } from "@/lib/site";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -143,6 +143,26 @@ function LocalBusinessJsonLd() {
     },
     openingHours,
     openingHoursSpecification,
+    paymentAccepted: SITE.paymentsAccepted.join(", "),
+    currenciesAccepted: "USD",
+    hasMenu: {
+      "@type": "Menu",
+      name: "Dinner Menu",
+      description: `${DINNER.scheduleNote}. ${DINNER.includesNote}`,
+      hasMenuSection: DINNER.days.map(({ day, items }) => ({
+        "@type": "MenuSection",
+        name: day,
+        hasMenuItem: items.map((it) => ({
+          "@type": "MenuItem",
+          name: it.name,
+          offers: {
+            "@type": "Offer",
+            price: it.price.replace("$", ""),
+            priceCurrency: "USD",
+          },
+        })),
+      })),
+    },
     areaServed: [
       { "@type": "City", name: "Woodsboro" },
       { "@type": "City", name: "Frederick" },

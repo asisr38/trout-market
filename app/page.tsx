@@ -3,6 +3,7 @@ import Hero from "@/components/hero";
 import Marquee from "@/components/marquee";
 import Specials from "@/components/specials";
 import Deli from "@/components/deli";
+import Dinner from "@/components/dinner";
 import Hours from "@/components/hours";
 import About from "@/components/about";
 import Footer from "@/components/footer";
@@ -16,6 +17,7 @@ export default function Page() {
         <Marquee />
         <Specials />
         <Deli />
+        <Dinner />
         <Hours />
         <About />
       </main>
