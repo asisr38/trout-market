@@ -1,3 +1,6 @@
+import Image from "next/image";
+import { SITE } from "@/lib/site";
+
 const STATS = [
   ["30+", "Years serving Frederick County"],
   ["7", "Days open, every single week"],
@@ -10,9 +13,16 @@ export default function About() {
     <section id="about" aria-labelledby="about-title">
       <div className="section-wrap">
         <div className="about-layout">
-          <div className="about-img" aria-hidden="true">
-            <span>storefront / market interior photo</span>
-          </div>
+          <figure className="about-img">
+            <Image
+              src="/buildingFront.webp"
+              alt={`${SITE.name} storefront on ${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region}`}
+              fill
+              sizes="(max-width:960px) 100vw, 50vw"
+              quality={85}
+              style={{ objectFit: "cover" }}
+            />
+          </figure>
           <div>
             <div className="about-rule" aria-hidden="true" />
             <h2 className="about-h2" id="about-title">

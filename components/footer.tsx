@@ -1,10 +1,18 @@
+import Image from "next/image";
 import { SITE } from "@/lib/site";
 
 export default function Footer() {
   return (
     <footer>
       <div className="footer-top">
-        <div>
+        <div className="footer-brand">
+          <Image
+            src="/logo.webp"
+            alt=""
+            width={72}
+            height={72}
+            className="footer-brand-mark"
+          />
           <div className="footer-brand-name">{SITE.name}</div>
           <div className="footer-brand-sub">{SITE.tagline}</div>
           <address className="footer-brand-desc" style={{ fontStyle: "normal" }}>

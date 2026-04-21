@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { SITE } from "@/lib/site";
 import ThemeToggle from "./theme-toggle";
 
@@ -33,9 +34,19 @@ export default function Nav() {
     <>
       <nav className="nav" aria-label="Primary">
         <a href="/" className="nav-logo" aria-label={`${SITE.name} home`}>
-          <span className="nav-logo-top">{SITE.name}</span>
-          <span className="nav-logo-sub">
-            Est. {SITE.founded} · {SITE.address.city}, {SITE.address.region}
+          <Image
+            src="/logo.webp"
+            alt=""
+            width={44}
+            height={44}
+            priority
+            className="nav-logo-mark"
+          />
+          <span className="nav-logo-text">
+            <span className="nav-logo-top">{SITE.name}</span>
+            <span className="nav-logo-sub">
+              Est. {SITE.founded} · {SITE.address.city}, {SITE.address.region}
+            </span>
           </span>
         </a>
         <div className="nav-links">

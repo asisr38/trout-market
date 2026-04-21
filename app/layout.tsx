@@ -48,10 +48,10 @@ export const metadata: Metadata = {
     description: SITE.description,
     images: [
       {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: `${SITE.name} — Woodsboro, MD`,
+        url: "/buildingFront.webp",
+        width: 1295,
+        height: 510,
+        alt: `${SITE.name} storefront — ${SITE.address.street}, ${SITE.address.city}, ${SITE.address.region}`,
       },
     ],
   },
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE.name,
     description: SITE.description,
-    images: ["/og-image.jpg"],
+    images: ["/buildingFront.webp"],
   },
   robots: {
     index: true,
@@ -126,8 +126,8 @@ function LocalBusinessJsonLd() {
     email: SITE.email,
     foundingDate: SITE.founded,
     priceRange: "$$",
-    image: `${SITE.url}/og-image.jpg`,
-    logo: `${SITE.url}/logo.png`,
+    image: `${SITE.url}/buildingFront.webp`,
+    logo: `${SITE.url}/logo.webp`,
     address: {
       "@type": "PostalAddress",
       streetAddress: SITE.address.street,

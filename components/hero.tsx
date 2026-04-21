@@ -1,9 +1,20 @@
+import Image from "next/image";
 import { SITE } from "@/lib/site";
 
 export default function Hero() {
   return (
     <header className="hero" id="top">
-      <div className="hero-bg-img" aria-hidden="true" />
+      <div className="hero-bg-img" aria-hidden="true">
+        <Image
+          src="/buildingFront.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={85}
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
+      </div>
       <div className="hero-overlay" aria-hidden="true" />
       <div className="hero-year" aria-hidden="true">{SITE.founded}</div>
       <div className="hero-inner">
