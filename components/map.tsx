@@ -1,9 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { SITE } from "@/lib/site";
+
+type Theme = "dark" | "light";
+
+const TILES: Record<Theme, string> = {
+  dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+  light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+};
 
 const goldIcon = L.divIcon({
   className: "trouts-marker",
@@ -17,19 +25,43 @@ const goldIcon = L.divIcon({
   popupAnchor: [0, -14],
 });
 
+function useTheme(): Theme {
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof document === "undefined") return "dark";
+    return (document.documentElement.dataset.theme as Theme) || "dark";
+  });
+
+  useEffect(() => {
+    const el = document.documentElement;
+    const read = () => {
+      const t = (el.dataset.theme as Theme) || "dark";
+      setTheme(t);
+    };
+    read();
+    const mo = new MutationObserver(read);
+    mo.observe(el, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => mo.disconnect();
+  }, []);
+
+  return theme;
+}
+
 export default function Map() {
+  const theme = useTheme();
   const pos: [number, number] = [SITE.geo.lat, SITE.geo.lng];
+  const bg = theme === "light" ? "#F5F0E4" : "#0C0B09";
   return (
     <MapContainer
       center={pos}
       zoom={15}
       scrollWheelZoom={false}
-      style={{ height: "100%", width: "100%", background: "#0C0B09" }}
+      style={{ height: "100%", width: "100%", background: bg }}
       attributionControl={true}
     >
       <TileLayer
+        key={theme}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        url={TILES[theme]}
       />
       <Marker position={pos} icon={goldIcon}>
         <Popup>

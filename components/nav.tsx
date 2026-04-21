@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SITE } from "@/lib/site";
+import ThemeToggle from "./theme-toggle";
 
 const LINKS = [
   { href: "#specials", label: "Specials" },
@@ -41,6 +42,7 @@ export default function Nav() {
               {l.label}
             </a>
           ))}
+          <ThemeToggle />
           <a
             href={`tel:${SITE.phoneTel}`}
             className="nav-phone"
@@ -98,6 +100,9 @@ export default function Nav() {
           >
             Email Us
           </a>
+          <div className="mobile-menu-theme">
+            <ThemeToggle variant="menu" />
+          </div>
           <div className="mobile-menu-meta">
             {SITE.address.street}
             <br />

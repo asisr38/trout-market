@@ -81,11 +81,16 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0C0B09",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#F5F0E4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0C0B09" },
+  ],
   width: "device-width",
   initialScale: 1,
-  colorScheme: "dark",
+  colorScheme: "light dark",
 };
+
+const THEME_INIT = `(function(){try{var t=localStorage.getItem('trouts-theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='dark';}})();`;
 
 const dayNames: Record<string, string> = {
   Monday: "Mo",
@@ -209,7 +214,15 @@ function WebsiteJsonLd() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html
+      lang="en"
+      data-theme="dark"
+      suppressHydrationWarning
+      className={`${cormorant.variable} ${dmSans.variable}`}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+      </head>
       <body>
         <LocalBusinessJsonLd />
         <WebsiteJsonLd />
