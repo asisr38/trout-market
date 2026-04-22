@@ -20,6 +20,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
+  manifest: "/manifest.webmanifest",
   title: {
     default: `${SITE.name} — Fresh Seafood, Deli & Groceries in Woodsboro, MD`,
     template: `%s | ${SITE.name}`,
@@ -73,8 +74,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: [{ url: "/favicon.svg", type: "image/svg+xml" }],
   },
   category: "Grocery Store",
   formatDetection: { telephone: true, email: true, address: true },
@@ -127,7 +128,7 @@ function LocalBusinessJsonLd() {
     foundingDate: SITE.founded,
     priceRange: "$$",
     image: `${SITE.url}/buildingFront.webp`,
-    logo: `${SITE.url}/logo.webp`,
+    logo: `${SITE.url}/logo-mark.svg`,
     address: {
       "@type": "PostalAddress",
       streetAddress: SITE.address.street,
@@ -244,6 +245,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>
       <body>
+        <a className="skip-link" href="#content">
+          Skip to content
+        </a>
         <LocalBusinessJsonLd />
         <WebsiteJsonLd />
         {children}

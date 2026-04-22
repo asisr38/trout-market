@@ -1,0 +1,15 @@
+<svg width="820" height="260" viewBox="0 0 820 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="820" height="260" rx="36" fill="#0C0B09"/>
+  <rect x="18" y="18" width="784" height="224" rx="24" stroke="#302613" stroke-width="2"/>
+  <g transform="translate(34 2)">
+    <path d="M50 72C72 48 106 34 146 34C176 34 202 42 222 58" stroke="#C9A84C" stroke-width="10" stroke-linecap="round"/>
+    <path d="M48 186C82 204 126 210 170 202C193 198 214 190 228 176" stroke="#6C5723" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+    <text x="73" y="152" fill="#F4EBD6" font-family="Georgia, 'Times New Roman', serif" font-size="118" font-style="italic" font-weight="700">T</text>
+    <path d="M116 165C134 153 157 148 182 151C175 160 172 170 173 181C155 183 135 177 116 165Z" fill="#C9A84C"/>
+    <path d="M175 160C188 156 200 160 208 170C201 173 196 178 192 186C181 181 176 172 175 160Z" fill="#F4EBD6"/>
+    <circle cx="191" cy="170" r="3.5" fill="#0C0B09"/>
+  </g>
+  <text x="290" y="120" fill="#F4EBD6" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-style="italic">Trout's Market</text>
+  <text x="292" y="160" fill="#C9A84C" font-family="'Trebuchet MS', Arial, sans-serif" font-size="20" letter-spacing="0.28em">SEAFOOD · DELI · GROCERIES</text>
+  <text x="292" y="196" fill="#9A8A64" font-family="'Trebuchet MS', Arial, sans-serif" font-size="17" letter-spacing="0.18em">WOODSBORO, MARYLAND · EST. 1994</text>
+</svg>

@@ -19,7 +19,7 @@ export default function ShopPage() {
   return (
     <>
       <Nav />
-      <main>
+      <main id="content">
         <section className="shop-hero" aria-labelledby="shop-title">
           <div className="section-wrap">
             <p className="hero-eyebrow">Departments</p>

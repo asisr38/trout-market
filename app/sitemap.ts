@@ -3,18 +3,11 @@ import { SITE } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const sections = ["", "#specials", "#deli", "#dinner", "#hours", "#about"];
-  const entries: MetadataRoute.Sitemap = sections.map((hash) => ({
-    url: `${SITE.url}/${hash}`,
+  const entries: MetadataRoute.Sitemap = ["", "/shop"].map((path) => ({
+    url: `${SITE.url}${path}`,
     lastModified: now,
-    changeFrequency: "weekly",
-    priority: hash === "" ? 1 : 0.7,
+    changeFrequency: path === "" ? "weekly" : "monthly",
+    priority: path === "" ? 1 : 0.8,
   }));
-  entries.push({
-    url: `${SITE.url}/shop`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.8,
-  });
   return entries;
 }

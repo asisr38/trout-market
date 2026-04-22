@@ -1,0 +1,25 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="28" y1="20" x2="228" y2="236" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17140F"/>
+      <stop offset="1" stop-color="#0C0B09"/>
+    </linearGradient>
+    <linearGradient id="line" x1="52" y1="62" x2="213" y2="186" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D5B35A"/>
+      <stop offset="1" stop-color="#8B6A18"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="256" height="256" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <rect x="14" y="14" width="228" height="228" rx="54" fill="url(#bg)"/>
+    <rect x="14" y="14" width="228" height="228" rx="54" stroke="#302613" stroke-width="4"/>
+  </g>
+  <path d="M50 72C72 48 106 34 146 34C176 34 202 42 222 58" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M48 186C82 204 126 210 170 202C193 198 214 190 228 176" stroke="#6C5723" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+  <text x="73" y="152" fill="#F4EBD6" font-family="Georgia, 'Times New Roman', serif" font-size="118" font-style="italic" font-weight="700">T</text>
+  <path d="M116 165C134 153 157 148 182 151C175 160 172 170 173 181C155 183 135 177 116 165Z" fill="#C9A84C"/>
+  <path d="M175 160C188 156 200 160 208 170C201 173 196 178 192 186C181 181 176 172 175 160Z" fill="#F4EBD6"/>
+  <circle cx="191" cy="170" r="3.5" fill="#0C0B09"/>
+</svg>

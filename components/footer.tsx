@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { SITE } from "@/lib/site";
 
@@ -7,7 +8,7 @@ export default function Footer() {
       <div className="footer-top">
         <div className="footer-brand">
           <Image
-            src="/logo.webp"
+            src="/logo-mark.svg"
             alt=""
             width={72}
             height={72}
@@ -24,18 +25,18 @@ export default function Footer() {
         <div>
           <div className="footer-col-title">Specials</div>
           <nav className="footer-links" aria-label="Specials">
-            <a href="#specials">Weekly Deals</a>
-            <a href="#specials">Crab Pricing</a>
-            <a href="#deli">Fried Chicken</a>
+            <Link href="/#specials">Weekly Deals</Link>
+            <Link href="/#specials">Crab Pricing</Link>
+            <Link href="/#deli">Fried Chicken</Link>
           </nav>
         </div>
         <div>
           <div className="footer-col-title">Services</div>
           <nav className="footer-links" aria-label="Services">
-            <a href="/shop">Grocery, Deli &amp; Seafood</a>
-            <a href="#deli">Deli &amp; Catering</a>
-            <a href="#dinner">Dinner Menu</a>
-            <a href="#hours">Curbside Pickup</a>
+            <Link href="/shop">Grocery, Deli &amp; Seafood</Link>
+            <Link href="/#deli">Deli &amp; Catering</Link>
+            <Link href="/#dinner">Dinner Menu</Link>
+            <Link href="/#hours">Curbside Pickup</Link>
           </nav>
         </div>
         <div>
@@ -43,7 +44,7 @@ export default function Footer() {
           <nav className="footer-links" aria-label="Contact">
             <a href={`tel:${SITE.phoneTel}`}>{SITE.phone}</a>
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-            <a href="#hours">Hours &amp; Location</a>
+            <Link href="/#hours">Hours &amp; Location</Link>
           </nav>
           <div className="payments">
             <div className="payments-label">We Accept</div>
@@ -57,7 +58,7 @@ export default function Footer() {
       </div>
       <div className="footer-bottom">
         <span className="footer-copy">© {new Date().getFullYear()} {SITE.legalName}. All rights reserved.</span>
-        <span className="footer-copy">Privacy Policy · Accessibility · Conditions of Use</span>
+        <span className="footer-copy">Family-owned seafood, deli, and grocery market in Woodsboro, Maryland.</span>
       </div>
     </footer>
   );

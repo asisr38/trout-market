@@ -25,7 +25,7 @@ function Track() {
 
 export default function Marquee() {
   return (
-    <div className="marquee-strip" role="marquee" aria-label="Highlights">
+    <div className="marquee-strip" aria-hidden="true">
       <div className="marquee-track">
         <Track />
         <Track />
