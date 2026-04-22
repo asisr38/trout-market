@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SITE } from "@/lib/site";
@@ -75,18 +74,10 @@ export default function Nav() {
     <>
       <nav className="nav" aria-label="Primary">
         <Link href="/" className="nav-logo" aria-label={`${SITE.name} home`}>
-          <Image
-            src="/logo-mark.svg"
-            alt=""
-            width={44}
-            height={44}
-            priority
-            className="nav-logo-mark"
-          />
           <span className="nav-logo-text">
             <span className="nav-logo-top">{SITE.name}</span>
             <span className="nav-logo-sub">
-              Est. {SITE.founded} · {SITE.address.city}, {SITE.address.region}
+              Seafood · Deli · Groceries
             </span>
           </span>
         </Link>

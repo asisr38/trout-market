@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { SITE } from "@/lib/site";
 
 export default function Footer() {
@@ -7,13 +6,6 @@ export default function Footer() {
     <footer>
       <div className="footer-top">
         <div className="footer-brand">
-          <Image
-            src="/logo-mark.svg"
-            alt=""
-            width={72}
-            height={72}
-            className="footer-brand-mark"
-          />
           <div className="footer-brand-name">{SITE.name}</div>
           <div className="footer-brand-sub">{SITE.tagline}</div>
           <address className="footer-brand-desc" style={{ fontStyle: "normal" }}>
