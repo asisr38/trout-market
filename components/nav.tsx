@@ -17,6 +17,8 @@ const LINKS = [
 
 export default function Nav() {
   const pathname = usePathname();
+  const isActive = (href: string) =>
+    !href.includes("#") && (href === "/" ? pathname === "/" : pathname === href);
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -83,7 +85,12 @@ export default function Nav() {
         </Link>
         <div className="nav-links">
           {LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="nav-link-desktop">
+            <Link
+              key={l.href}
+              href={l.href}
+              className="nav-link-desktop"
+              aria-current={isActive(l.href) ? "page" : undefined}
+            >
               {l.label}
             </Link>
           ))}
@@ -130,6 +137,7 @@ export default function Nav() {
                 key={l.href}
                 href={l.href}
                 className="mobile-menu-link"
+                aria-current={isActive(l.href) ? "page" : undefined}
                 onClick={() => setOpen(false)}
               >
                 {l.label}
