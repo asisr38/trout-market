@@ -2,12 +2,13 @@ import type { Metadata, Viewport } from "next";
 import { SITE } from "@/lib/site";
 import { ChickenBoard } from "@/components/signage/chicken-board";
 import { KioskRuntime } from "@/components/signage/kiosk-runtime";
-import "./tv.css";
+// Board styles live in app/tv/tv.css (shared with the original route).
+import "../tv/tv.css";
 
 export const metadata: Metadata = {
-  title: "Fried Chicken Menu",
+  title: "Fried Chicken Menu — Board",
   description: `In-store fried chicken menu board for ${SITE.name}.`,
-  alternates: { canonical: "/tv" },
+  alternates: { canonical: "/tv1" },
   // Kiosk page — keep it out of search results.
   robots: { index: false, follow: false },
 };
@@ -20,7 +21,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function TvPage() {
+export default function Tv1Page() {
   return (
     <>
       <ChickenBoard />

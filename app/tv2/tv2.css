@@ -1,0 +1,565 @@
+/* ==========================================================================
+   /tv2 — Digital signage MENU SLIDESHOW.
+   Ported from the "Trout's Market TV Menu" reference, Style A "Spotlight".
+
+   Design approach: a fixed 1920×1080 canvas is centered and scaled to fit any
+   TV / window by JS (transform: scale) so it letterboxes and stays pixel-exact.
+   Loaded ONLY by app/tv2/page.tsx, so it never affects the rest of the site.
+   Fonts (Archivo display + Figtree UI) are loaded via next/font in page.tsx and
+   exposed as the CSS variables referenced below.
+   ========================================================================== */
+
+/* full-viewport black stage; the canvas is centered + scaled to fit */
+.tv2-stage {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  overflow: hidden;
+  cursor: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tv2-stage * {
+  cursor: none;
+}
+
+.canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center center;
+  overflow: hidden;
+
+  /* ---- Design tokens · Style A "Spotlight" ---- */
+  --accent: #00c853; /* bright green */
+  --accent-ink: #06210f; /* text that sits on the green */
+  --gold: #f4b350;
+  --ink: #f7f9f7;
+  --ink-dim: #9aa3a0;
+  --bg: #0d0f10;
+  --bg-glow: 220px 0 at 70% 38%, rgba(0, 200, 83, 0.1), transparent 60%;
+  --panel: #16191b;
+  --border: rgba(255, 255, 255, 0.08);
+  --price: var(--ink);
+  --display: var(--font-archivo), "Archivo", system-ui, sans-serif;
+  --ui: var(--font-figtree), "Figtree", system-ui, sans-serif;
+  --radius: 22px;
+
+  background:
+    radial-gradient(var(--bg-glow)),
+    radial-gradient(140% 120% at 50% 0%, #15191b 0%, var(--bg) 55%);
+  color: var(--ink);
+  font-family: var(--ui);
+}
+
+/* ====================================================================
+   SLIDE SHELL  (cross-fade)
+   ==================================================================== */
+.slides {
+  position: absolute;
+  inset: 0;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 66px 112px 60px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.85s ease;
+  will-change: opacity;
+}
+.slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slide-body {
+  position: absolute;
+  inset: 150px 112px 116px;
+  display: flex;
+}
+.slide-inner {
+  width: 100%;
+  height: 100%;
+}
+
+/* Brand wordmark — top-left on every slide */
+.brand {
+  position: absolute;
+  top: 58px;
+  left: 112px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  z-index: 3;
+}
+.brand__mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: block;
+  object-fit: contain;
+}
+.brand__name {
+  font-family: var(--ui);
+  font-weight: 700;
+  font-size: 34px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.brand__name em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--ink-dim);
+}
+
+/* Footer line — bottom-left on every slide */
+.footer-line {
+  position: absolute;
+  bottom: 56px;
+  left: 112px;
+  font-family: var(--ui);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 0.02em;
+  color: var(--ink-dim);
+  z-index: 3;
+}
+
+/* ====================================================================
+   SLIDE HEADER
+   ==================================================================== */
+.slide-head {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 8px;
+}
+.slide-head__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 96px;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.slide-head__sub {
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 36px;
+  color: var(--ink-dim);
+}
+.slide-head__sub--pill {
+  align-self: flex-start;
+  color: var(--accent);
+  white-space: nowrap;
+  background: rgba(0, 200, 83, 0.12);
+  border: 1.5px solid rgba(0, 200, 83, 0.3);
+  padding: 8px 24px;
+  border-radius: 999px;
+  font-size: 30px;
+}
+
+/* ====================================================================
+   STACK LAYOUT  (header on top, content fills below)
+   ==================================================================== */
+.stack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.stack .slide-head {
+  margin-bottom: 52px;
+}
+
+/* ====================================================================
+   PRICE CARD
+   ==================================================================== */
+.price-card {
+  position: relative;
+  background: var(--panel);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 38px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+.price-card__label {
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 36px;
+  color: var(--ink-dim);
+  letter-spacing: 0.005em;
+}
+.price-card__price {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 92px;
+  line-height: 0.86;
+  color: var(--price);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.price-card__unit {
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 30px;
+  font-style: normal;
+  color: var(--ink-dim);
+}
+.price-card__desc {
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 30px;
+  color: var(--accent);
+}
+.price-card__badge {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--ui);
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 9px 24px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.price-card--featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1.5px var(--accent), 0 30px 80px -30px rgba(0, 200, 83, 0.5);
+}
+
+/* ====================================================================
+   SLIDE 2 · PIECES GRID
+   ==================================================================== */
+.pieces-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
+}
+
+/* ====================================================================
+   SLIDE 3 · MEALS — two columns of rows
+   ==================================================================== */
+.meals-cols {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 96px;
+}
+.meals-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.menu-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 22px 4px;
+  border-bottom: 1.5px solid var(--border);
+}
+.menu-row:last-child {
+  border-bottom: none;
+}
+.menu-row__label {
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 42px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.menu-row__dots {
+  flex: 1;
+  align-self: center;
+  height: 0;
+  border-bottom: 2px dotted rgba(255, 255, 255, 0.14);
+  margin-bottom: 8px;
+}
+.menu-row__price {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 52px;
+  color: var(--price);
+  letter-spacing: -0.01em;
+}
+
+/* ====================================================================
+   SLIDE 4 · COMBOS — three big cards
+   ==================================================================== */
+.combos-row {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  align-items: center;
+}
+.combos-row .price-card {
+  height: 84%;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 56px 40px;
+  border-width: 1.5px;
+}
+.combos-row .price-card--featured {
+  height: 100%;
+}
+.combos-row .price-card__label {
+  font-size: 40px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.combos-row .price-card__price {
+  font-size: 132px;
+}
+.combos-row .price-card__desc {
+  font-size: 34px;
+  white-space: nowrap;
+}
+
+/* ====================================================================
+   SLIDE 1 · HERO  &  SLIDE 5 · INDIVIDUAL  (split layouts w/ photo)
+   ==================================================================== */
+/* Renamed from .hero to avoid colliding with the site homepage's .hero in
+   globals.css (which loads on every route and forces flex-direction:column). */
+.tv-hero {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  width: 100%;
+}
+.hero__copy {
+  flex: 1 1 53%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.hero__badge {
+  align-self: flex-start;
+  font-family: var(--ui);
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0, 200, 83, 0.1);
+  border: 1.5px solid rgba(0, 200, 83, 0.34);
+  padding: 12px 26px;
+  border-radius: 999px;
+}
+.hero__headline {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 184px;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+}
+.hero__word {
+  display: block;
+}
+.hero__word:nth-child(2) {
+  color: var(--accent);
+}
+.hero__subhead {
+  font-family: var(--ui);
+  font-weight: 500;
+  font-size: 44px;
+  color: var(--ink-dim);
+  margin-top: 6px;
+}
+.hero__rule {
+  width: 132px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.hero__media {
+  flex: 1 1 47%;
+  height: 100%;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.hero__glow {
+  position: absolute;
+  width: 86%;
+  height: 86%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 68%);
+  opacity: 0.28;
+  filter: blur(8px);
+}
+.hero__img {
+  position: relative;
+  width: 100%;
+  height: 88%;
+  display: block;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 40px 110px -40px rgba(0, 0, 0, 0.8);
+}
+.hero__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Branded fallback panel shown until a real photo is dropped in /public/tv/ */
+.hero__fallback {
+  position: relative;
+  width: 100%;
+  height: 88%;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  text-align: center;
+  border: 1.5px solid var(--border);
+  background:
+    radial-gradient(90% 70% at 50% 35%, rgba(244, 179, 80, 0.18), transparent 60%),
+    linear-gradient(160deg, #201c14 0%, #0c0b09 80%);
+  box-shadow: 0 40px 110px -40px rgba(0, 0, 0, 0.8);
+}
+.hero__fallback img {
+  width: 150px;
+  height: auto;
+}
+.hero__fallback p {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 0.95;
+  color: var(--ink);
+}
+.hero__fallback p em {
+  display: block;
+  font-style: normal;
+  color: var(--gold);
+}
+
+.individual {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  width: 100%;
+}
+.individual__copy {
+  flex: 1 1 56%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.individual__rows {
+  display: flex;
+  flex-direction: column;
+}
+.individual .menu-row {
+  padding: 26px 4px;
+}
+.individual .menu-row__label {
+  font-size: 48px;
+}
+.individual .menu-row__price {
+  font-size: 60px;
+}
+.individual__media {
+  flex: 1 1 44%;
+  height: 78%;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+/* ====================================================================
+   PROGRESS INDICATOR
+   ==================================================================== */
+.progress {
+  position: absolute;
+  bottom: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  z-index: 3;
+}
+.progress__seg {
+  width: 78px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+.progress__seg.is-done {
+  background: var(--accent);
+  opacity: 0.55;
+}
+.progress__fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+}
+.progress__seg.is-current .progress__fill {
+  animation: fillSeg linear forwards;
+}
+@keyframes fillSeg {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* ====================================================================
+   ENTRANCE ANIMATIONS — cheap (transform + opacity), only while active.
+   Content is visible by default so it never gets stuck hidden.
+   ==================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .slide.is-active .anim,
+  .slide.is-active .price-card,
+  .slide.is-active .menu-row {
+    animation: riseIn 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 0.05s + 0.15s);
+  }
+  @keyframes riseIn {
+    from {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .slide.is-active .hero__media .hero__img,
+  .slide.is-active .individual__media .hero__img {
+    animation: heroZoom 14s ease-out both;
+  }
+  @keyframes heroZoom {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.05);
+    }
+  }
+}
