@@ -127,6 +127,11 @@
   letter-spacing: 0.02em;
   color: var(--ink-dim);
   z-index: 3;
+  /* Stop long footers before the centered progress bar (starts ≈737px). */
+  max-width: 600px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ====================================================================
@@ -263,7 +268,9 @@
 .meals-col {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* space-evenly (not space-between) so short lists don't pin a row to the
+     very bottom of the slide against the footer. */
+  justify-content: space-evenly;
 }
 .menu-row {
   display: flex;
@@ -295,6 +302,8 @@
   font-size: 52px;
   color: var(--price);
   letter-spacing: -0.01em;
+  /* Text prices like "Order Ahead" must never wrap onto a second line. */
+  white-space: nowrap;
 }
 
 /* ====================================================================

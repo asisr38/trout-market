@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import type { Slide } from "@/lib/tv-menu";
+import type { Slide, TvDeck } from "@/lib/tv-menu";
 import { PriceCard } from "./price-card";
 import { MenuRow } from "./menu-row";
 import { SlideHead } from "./slide-head";
@@ -23,11 +23,17 @@ export function FooterLine({ text }: { text: string }) {
 }
 
 /** Photo with branded fallback (shared by Hero + Individual media slots). */
-function MediaPhoto({ imageSrc }: { imageSrc: string | null }) {
+function MediaPhoto({
+  imageSrc,
+  fallback,
+}: {
+  imageSrc: string | null;
+  fallback: TvDeck["fallback"];
+}) {
   if (imageSrc) {
     return (
       <div className="hero__img">
-        <Image src={imageSrc} alt="Trout's Market fried chicken" fill sizes="50vw" priority />
+        <Image src={imageSrc} alt="" fill sizes="50vw" priority />
       </div>
     );
   }
@@ -36,7 +42,7 @@ function MediaPhoto({ imageSrc }: { imageSrc: string | null }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/logo-mark.svg" alt="" />
       <p>
-        Famous <em>Fried Chicken</em>
+        {fallback.lead} <em>{fallback.accent}</em>
       </p>
     </div>
   );
@@ -48,7 +54,15 @@ type MealsData = Extract<Slide, { type: "meals" }>;
 type CombosData = Extract<Slide, { type: "combos" }>;
 type IndividualData = Extract<Slide, { type: "individual" }>;
 
-function HeroSlide({ data, imageSrc }: { data: HeroData; imageSrc: string | null }) {
+function HeroSlide({
+  data,
+  imageSrc,
+  fallback,
+}: {
+  data: HeroData;
+  imageSrc: string | null;
+  fallback: TvDeck["fallback"];
+}) {
   return (
     <div className="slide-inner tv-hero">
       <div className="hero__copy">
@@ -67,7 +81,7 @@ function HeroSlide({ data, imageSrc }: { data: HeroData; imageSrc: string | null
       </div>
       <div className="hero__media anim" style={{ "--i": 2 } as CSSProperties}>
         <div className="hero__glow" aria-hidden="true" />
-        <MediaPhoto imageSrc={imageSrc} />
+        <MediaPhoto imageSrc={imageSrc} fallback={fallback} />
       </div>
     </div>
   );
@@ -121,9 +135,11 @@ function CombosSlide({ data }: { data: CombosData }) {
 function IndividualSlide({
   data,
   imageSrc,
+  fallback,
 }: {
   data: IndividualData;
   imageSrc: string | null;
+  fallback: TvDeck["fallback"];
 }) {
   return (
     <div className="slide-inner individual">
@@ -137,7 +153,7 @@ function IndividualSlide({
       </div>
       <div className="individual__media anim" style={{ "--i": 1 } as CSSProperties}>
         <div className="hero__glow" aria-hidden="true" />
-        <MediaPhoto imageSrc={imageSrc} />
+        <MediaPhoto imageSrc={imageSrc} fallback={fallback} />
       </div>
     </div>
   );
@@ -149,11 +165,13 @@ export function MenuSlide({
   active,
   footer,
   imageSrc,
+  fallback,
 }: {
   data: Slide;
   active: boolean;
   footer: string;
   imageSrc: string | null;
+  fallback: TvDeck["fallback"];
 }) {
   return (
     <section
@@ -162,12 +180,14 @@ export function MenuSlide({
     >
       <Brandmark />
       <div className="slide-body">
-        {data.type === "hero" && <HeroSlide data={data} imageSrc={imageSrc} />}
+        {data.type === "hero" && (
+          <HeroSlide data={data} imageSrc={imageSrc} fallback={fallback} />
+        )}
         {data.type === "pieces" && <PiecesSlide data={data} />}
         {data.type === "meals" && <MealsSlide data={data} />}
         {data.type === "combos" && <CombosSlide data={data} />}
         {data.type === "individual" && (
-          <IndividualSlide data={data} imageSrc={imageSrc} />
+          <IndividualSlide data={data} imageSrc={imageSrc} fallback={fallback} />
         )}
       </div>
       <FooterLine text={footer} />

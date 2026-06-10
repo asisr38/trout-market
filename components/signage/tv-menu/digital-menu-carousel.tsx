@@ -4,21 +4,25 @@ import { useEffect, useRef, useState } from "react";
 import {
   MENU_FOOTER,
   REFRESH_INTERVAL_MS,
-  SLIDES,
   SLIDE_SECONDS,
+  type TvDeck,
 } from "@/lib/tv-menu";
 import { MenuSlide, ProgressBar } from "./slides";
 
 export function DigitalMenuCarousel({
+  deck,
   imageMap,
 }: {
+  /** Which TV's slide deck to play (see TV_DECKS in lib/tv-menu.ts). */
+  deck: TvDeck;
   /** slide id → resolved photo src (or null to use the branded fallback). */
   imageMap: Record<string, string | null>;
 }) {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);
-  const total = SLIDES.length;
+  const total = deck.slides.length;
   const seconds = SLIDE_SECONDS;
+  const footer = deck.footer ?? MENU_FOOTER;
 
   // Auto-rotate forever — restart the timer whenever the slide changes.
   useEffect(() => {
@@ -78,13 +82,14 @@ export function DigitalMenuCarousel({
     <div className="tv2-stage" role="presentation">
       <div className="canvas" data-style="a" ref={canvasRef}>
         <div className="slides">
-          {SLIDES.map((slide, i) => (
+          {deck.slides.map((slide, i) => (
             <MenuSlide
               key={slide.id}
               data={slide}
               active={i === current}
-              footer={MENU_FOOTER}
+              footer={footer}
               imageSrc={imageMap[slide.id] ?? null}
+              fallback={deck.fallback}
             />
           ))}
         </div>
