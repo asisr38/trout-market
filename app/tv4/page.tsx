@@ -4,9 +4,9 @@ import { TV_DECKS } from "@/lib/tv-menu";
 import { MenuSlideshow } from "@/components/signage/tv-menu/menu-slideshow";
 
 export const metadata: Metadata = {
-  title: `${TV_DECKS.tv1.name} — TV 1`,
-  description: `In-store ${TV_DECKS.tv1.name.toLowerCase()} slideshow for ${SITE.name}.`,
-  alternates: { canonical: "/tv1" },
+  title: `${TV_DECKS.tv4.name} — TV 4`,
+  description: `In-store ${TV_DECKS.tv4.name.toLowerCase()} slideshow for ${SITE.name}.`,
+  alternates: { canonical: "/tv4" },
   // Kiosk page — keep it out of search results.
   robots: { index: false, follow: false },
 };
@@ -19,6 +19,6 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function Tv1Page() {
-  return <MenuSlideshow deck={TV_DECKS.tv1} />;
+export default function Tv4Page() {
+  return <MenuSlideshow deck={TV_DECKS.tv4} />;
 }
