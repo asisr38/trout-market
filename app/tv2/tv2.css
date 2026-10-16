@@ -86,34 +86,23 @@
   height: 100%;
 }
 
-/* Brand wordmark — top-left on every slide */
+/* Brand logo — top-left on every slide */
 .brand {
   position: absolute;
   top: 58px;
   left: 112px;
   display: flex;
   align-items: center;
-  gap: 18px;
   z-index: 3;
 }
-.brand__mark {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
+.brand__logo {
+  height: 84px;
+  width: auto;
   display: block;
-  object-fit: contain;
-}
-.brand__name {
-  font-family: var(--ui);
-  font-weight: 700;
-  font-size: 34px;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-.brand__name em {
-  font-style: normal;
-  font-weight: 500;
-  color: var(--ink-dim);
+  border-radius: 16px;
+  background: #fff;
+  padding: 12px 20px;
+  box-shadow: 0 16px 44px -18px rgba(0, 0, 0, 0.7);
 }
 
 /* Footer line — bottom-left on every slide */
@@ -447,9 +436,14 @@
     linear-gradient(160deg, #201c14 0%, #0c0b09 80%);
   box-shadow: 0 40px 110px -40px rgba(0, 0, 0, 0.8);
 }
-.hero__fallback img {
-  width: 150px;
+.hero__fallback-logo {
+  width: 380px;
+  max-width: 62%;
   height: auto;
+  border-radius: 24px;
+  background: #fff;
+  padding: 26px 34px;
+  box-shadow: 0 34px 90px -34px rgba(0, 0, 0, 0.75);
 }
 .hero__fallback p {
   font-family: var(--display);

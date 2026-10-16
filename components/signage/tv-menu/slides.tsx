@@ -1,19 +1,16 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import type { Slide, TvDeck } from "@/lib/tv-menu";
+import tvLogo from "@/assets/logoForTV.png";
 import { PriceCard } from "./price-card";
 import { MenuRow } from "./menu-row";
 import { SlideHead } from "./slide-head";
 
-/** Brand wordmark — kept top-left on every slide. */
+/** Brand logo — kept top-left on every slide. */
 export function Brandmark() {
   return (
     <div className="brand">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/logo-mark.svg" alt="" className="brand__mark" />
-      <span className="brand__name">
-        Trout&rsquo;s <em>Market</em>
-      </span>
+      <Image src={tvLogo} alt="Trout's Market" className="brand__logo" priority />
     </div>
   );
 }
@@ -39,8 +36,7 @@ function MediaPhoto({
   }
   return (
     <div className="hero__fallback">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/logo-mark.svg" alt="" />
+      <Image src={tvLogo} alt="Trout's Market" className="hero__fallback-logo" />
       <p>
         {fallback.lead} <em>{fallback.accent}</em>
       </p>
